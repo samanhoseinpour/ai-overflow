@@ -20,8 +20,15 @@ const SocialAuthForm = () => {
           Sign In With Github
         </Button>
       </form>
-      <form action="">
-        <Button>
+      <form
+        action={async () => {
+          'use server';
+          await signIn('google', {
+            redirectTo: ROUTES.HOME,
+          });
+        }}
+      >
+        <Button type="submit">
           <FingerprintPattern />
           Sign In With Google
         </Button>
