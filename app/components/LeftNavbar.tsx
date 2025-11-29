@@ -12,7 +12,7 @@ const LeftNavbar = async () => {
   console.log(session);
 
   return (
-    <section className="w-[266px] max-lg:hidden h-svh sticky left-0 top-0 overflow-y-auto flex flex-col justify-between border-r pr-6">
+    <section className="w-[266px] max-lg:hidden h-svh sticky left-0 top-0 overflow-y-auto flex flex-col justify-start gap-80 border-r pr-6">
       <nav className="flex flex-col gap-6 rounded-lg">
         {navLinks.map((link) => {
           const Icon = link.icon;
