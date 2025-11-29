@@ -10,6 +10,7 @@ const SocialAuthForm = () => {
   return (
     <CardContent>
       <form
+        className="w-full"
         action={async () => {
           "use server";
           await signIn("github", {
@@ -27,7 +28,7 @@ const SocialAuthForm = () => {
         </FieldGroup>
       </form>
       <form
-        className="mt-2"
+        className="mt-2 w-full"
         action={async () => {
           "use server";
           await signIn("google", {

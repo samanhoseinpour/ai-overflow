@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -20,10 +21,8 @@ import { navLinks } from "@/constants";
 const MobileNav = async () => {
   const session = await auth();
 
-  console.log(session);
-
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
           <Button>
@@ -63,27 +62,42 @@ const MobileNav = async () => {
           </SheetHeader>
 
           <SheetFooter>
-            {session ? (
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut({ redirectTo: ROUTES.SIGN_IN });
-                }}
-              >
-                <Link href={`/profile/${session?.user?.email}`}>
-                  <Button className="w-full">Profile</Button>
-                </Link>
-                <Button
-                  type="submit"
-                  className="w-full mt-2"
-                  variant="destructive"
+            <div>
+              {session ? (
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut({ redirectTo: ROUTES.SIGN_IN });
+                  }}
                 >
-                  Sign Out
-                </Button>
-              </form>
-            ) : (
-              <SocialAuthForm />
-            )}
+                  <SheetClose asChild className="w-full">
+                    <Link href={`/profile/${session?.user?.email}`}>
+                      <Button className="w-full flex items-center">
+                        <Image
+                          width={24}
+                          height={24}
+                          src={session?.user?.image ?? "/favicon.ico"}
+                          alt={`${session?.user?.name} profile picture`}
+                          className="rounded-full"
+                        />
+                        <p className="text-xs font-semibold">
+                          {session?.user?.name ?? "Ai Overflow"}
+                        </p>
+                      </Button>
+                    </Link>
+                  </SheetClose>
+                  <Button
+                    type="submit"
+                    className="w-full mt-2"
+                    variant="destructive"
+                  >
+                    Sign Out
+                  </Button>
+                </form>
+              ) : (
+                <SocialAuthForm />
+              )}
+            </div>
           </SheetFooter>
         </SheetContent>
       </Sheet>
